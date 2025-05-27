@@ -7,7 +7,9 @@ fn main() -> anyhow::Result<()> {
     std::env::set_var("PROTOC", protobuf_src::protoc());
 
     // build protos
-    tonic_build::configure().compile_protos(&["proto/geyser.proto"], &["proto"])?;
+    tonic_build::configure()
+        .bytes(&[".proto.SubscribeUpdateAccountInfo"])
+        .compile_protos(&["proto/geyser.proto"], &["proto"])?;
 
     // build protos without tonic (wasm)
     let out_dir = env::var("OUT_DIR").expect("OUT_DIR not found");
@@ -16,6 +18,7 @@ fn main() -> anyhow::Result<()> {
     tonic_build::configure()
         .build_client(false)
         .build_server(false)
+        .bytes(&[".proto.SubscribeUpdateAccountInfo"])
         .out_dir(out_dir_path)
         .compile_protos(&["proto/geyser.proto"], &["proto"])?;
 
