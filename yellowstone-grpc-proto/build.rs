@@ -8,7 +8,7 @@ fn main() -> anyhow::Result<()> {
 
     // build protos
     tonic_build::configure()
-        .bytes(&[".proto.SubscribeUpdateAccountInfo"])
+        .bytes(&[".geyser.SubscribeUpdateAccountInfo"])
         .compile_protos(&["proto/geyser.proto"], &["proto"])?;
 
     // build protos without tonic (wasm)
@@ -18,7 +18,7 @@ fn main() -> anyhow::Result<()> {
     tonic_build::configure()
         .build_client(false)
         .build_server(false)
-        .bytes(&[".proto.SubscribeUpdateAccountInfo"])
+        .bytes(&[".geyser.SubscribeUpdateAccountInfo"])
         .out_dir(out_dir_path)
         .compile_protos(&["proto/geyser.proto"], &["proto"])?;
 
