@@ -135,7 +135,7 @@ impl FilteredUpdate {
             owner: message.owner.as_ref().into(),
             executable: message.executable,
             rent_epoch: message.rent_epoch,
-            data: data_slice.get_slice(&message.data),
+            data: prost::bytes::Bytes::copy_from_slice(&message.data),
             write_version: message.write_version,
             txn_signature: message.txn_signature.map(|s| s.as_ref().into()),
         }

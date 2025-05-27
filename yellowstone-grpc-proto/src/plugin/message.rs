@@ -218,7 +218,7 @@ impl MessageAccountInfo {
             owner: Pubkey::try_from(msg.owner.as_slice()).map_err(|_| "invalid owner length")?,
             executable: msg.executable,
             rent_epoch: msg.rent_epoch,
-            data: msg.data,
+            data: msg.data.to_vec(),
             write_version: msg.write_version,
             txn_signature: msg
                 .txn_signature
